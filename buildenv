@@ -1,0 +1,66 @@
+# Update bump details accordingly. Use bump check to confirm.
+# bump: fx-version /FX_VERSION="(.*)"/ https://github.com/antonmedv/fx.git|semver:*
+FX_VERSION="34.0.0" # Specify a stable release
+export ZOPEN_STABLE_TAG="v${FX_VERSION}"
+export ZOPEN_STABLE_URL="https://github.com/antonmedv/fx.git"
+export ZOPEN_STABLE_DEPS="comp_go wharf"
+export ZOPEN_BUILD_LINE="STABLE"
+export ZOPEN_CATEGORIES="graphics"
+
+
+export ZOPEN_CONFIGURE="zopen_wharf"
+export ZOPEN_CONFIGURE_MINIMAL=1
+export ZOPEN_MAKE="go"
+export ZOPEN_MAKE_OPTS="build"
+export ZOPEN_MAKE_MINIMAL=1
+export ZOPEN_INSTALL="zopen_install"
+export ZOPEN_CHECK="skip"
+export ZOPEN_CLEAN="zopen_clean"
+
+zopen_init()
+{
+  export CGO_ENABLED=0
+  # Go installs binaries, so create the bin dir as well
+  export GOBIN=$ZOPEN_INSTALL_DIR/bin
+  mkdir -p $ZOPEN_INSTALL_DIR/bin
+  unset CC CXX
+  export PATH=$PATH:$GOROOT/go-build-zos/bin
+}
+
+zopen_wharf()
+{
+  cd ..
+  go work init ./fx
+  wharf ./fx/...
+  cd ./fx
+}
+
+zopen_install()
+{
+  go install
+}
+
+zopen_check_results()
+{
+  dir="$1"
+  pfx="$2"
+  chk="$1/$2_check.log"
+
+  # Echo the following information to gauge build health
+  echo "actualFailures:0"
+  echo "totalTests:1"
+  echo "expectedFailures:0"
+  echo "expectedTotalTests:1"
+}
+
+zopen_clean()
+{
+  rm -rf ../.wharf_cache ../go.work* ../wharf_port 
+}
+
+zopen_get_version()
+{
+  # Modify to echo the version of your tool/library
+  # Rather than hardcoding the version, obtain the version by running the tool/library
+  echo "$FX_VERSION"
+}
