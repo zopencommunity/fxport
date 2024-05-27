@@ -1,7 +1,7 @@
 # Update bump details accordingly. Use bump check to confirm.
 # bump: fx-version /FX_VERSION="(.*)"/ https://github.com/antonmedv/fx.git|semver:*
 FX_VERSION="34.0.0" # Specify a stable release
-export ZOPEN_STABLE_TAG="v${FX_VERSION}"
+export ZOPEN_STABLE_TAG="${FX_VERSION}"
 export ZOPEN_STABLE_URL="https://github.com/antonmedv/fx.git"
 export ZOPEN_STABLE_DEPS="comp_go wharf"
 export ZOPEN_BUILD_LINE="STABLE"
@@ -16,6 +16,7 @@ export ZOPEN_MAKE_MINIMAL=1
 export ZOPEN_INSTALL="zopen_install"
 export ZOPEN_CHECK="skip"
 export ZOPEN_CLEAN="zopen_clean"
+export ZOPEN_COMP="GO"
 
 zopen_init()
 {
