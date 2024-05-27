@@ -2,4 +2,4 @@
 
 # fx
 
-Terminal JSON viewer & processor[1~[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[3~[C
+Terminal JSON viewer & processor
